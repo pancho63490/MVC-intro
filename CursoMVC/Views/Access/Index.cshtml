@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+
+
+<div class="row">
+    <form id="frm">
+
+
+        <div class="col-lg-6 col-lg-offset-3">
+
+
+            Usuario
+            <input type="text" name="User" />
+            Password
+            <input type="password" name="Pass" />
+            <input type="submit" class="btn btn-success" value="Entrar" />
+        </div>
+    </form>
+</div>
+@section scripts{
+    <script>
+    $(document).ready(function() {
+        $("#frm").submit(function (e) {
+            e.preventDefault();
+            var url = "@Url.Content("~/Access/Enter")"; // Declare 'var' to define variables.
+            var parametros = $(this).serialize();
+
+            $.post(url, parametros, function (data) {
+                if (data == "1") {
+                    document.location.href = "@Url.Content("~/Home/Index")";
+                } @*else if (data =="2"){
+                    alert("Usuario o Contrasena erronea");
+                    document.location.href = "@Url.Content("~/Access")";
+                }*@
+                else {
+                    alert(data);
+                }
+            });
+        });
+    });
+    </script>
+}
